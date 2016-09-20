@@ -11,7 +11,7 @@ function R=rand(pD,nData)
 %
 %----------------------------------------------------
 %Code Authors:
-% Alfredo Fanghella (alfredojfv.94@gmail.com)
+% Alfredo Fanghella (ajfv@kth.se)
 % Hirahi Galindo (hirahi@kth.se)
 %----------------------------------------------------
 
