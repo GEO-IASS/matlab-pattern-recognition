@@ -17,14 +17,29 @@ function S=rand(mc,T)
 %If mc has FINITE duration,
 %   length(S) <= T
 %
-%---------------------------------------------
+%----------------------------------------------------
 %Code Authors:
-%---------------------------------------------
+% Alfredo Fanghella (ajfv@kth.se)
+% Hirahi Galindo (hirahi@kth.se)
+%----------------------------------------------------
 
-S=zeros(1,T);%space for resulting row vector
+% input check
+if T < 0
+    error('Sequence length can not be negative.');
+elseif T == 0
+    S = [];
+    return;
+end;
+
 nS=mc.nStates;
-
-error('Method not yet implemented');
-%continue code from here, and erase the error message........
-
-
+% First state is chosen randmonly according to the initial state
+% probability distribution.
+S(1) = DiscreteD(mc.InitialProb).rand(1);
+for i=2:T
+    if mc.finiteDuration && (S(i-1) == nS + 1)
+        break;
+    end;
+    % Next state is chosen using the last state's row in the
+    % transition probability matrix.
+    S(i) = DiscreteD(mc.TransitionProb(S(i-1),:)).rand(1);
+end;
