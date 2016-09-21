@@ -36,10 +36,12 @@ nS=mc.nStates;
 % probability distribution.
 S(1) = DiscreteD(mc.InitialProb).rand(1);
 for i=2:T
-    if mc.finiteDuration && (S(i-1) == nS + 1)
-        break;
-    end;
     % Next state is chosen using the last state's row in the
     % transition probability matrix.
-    S(i) = DiscreteD(mc.TransitionProb(S(i-1),:)).rand(1);
+    state = DiscreteD(mc.TransitionProb(S(i-1),:)).rand(1);
+    if mc.finiteDuration && (state == nS + 1)
+        break;
+    else
+        S(i) = state;
+    end;
 end;
