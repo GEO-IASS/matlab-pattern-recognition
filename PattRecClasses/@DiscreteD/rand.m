@@ -26,7 +26,6 @@ for i=2:length(upperLimits)
     upperLimits(i) = upperLimits(i) + upperLimits(i-1);
 end;
 
-
 for i=1:nData
     uniformValue = rand;    % value in [0,1] from a uniform distribution
     R(i) = find(uniformValue <= upperLimits, 1);  % section where the value is in  
