@@ -1,4 +1,4 @@
-% Hidden Markov Model test.
+% Verification 3: Hidden Markov Model test.
 %
 % This script generates 10 000 scalar random numbers from a stationary
 % HMM. The mean and variance of the output should approximately equal the
@@ -10,7 +10,10 @@
 % Hirahi Galindo (hirahi@kth.se)
 %----------------------------------------------------
 
-mc = MarkovChain([0.75; 0.25], [0.99 0.01; 0.03 0.97]);
+q = [0.75; 0.25]; %Initial values
+A = [0.99 0.01; 0.03 0.97]; %Transition matrix
+
+mc = MarkovChain(q, A);
 g1 = GaussD('Mean', 0, 'StDev', 1); %Distribution for state=1
 g2 = GaussD('Mean', 3, 'StDev', 2); %Distribution for state=2
 h = HMM(mc, [g1; g2]); %The HMM
