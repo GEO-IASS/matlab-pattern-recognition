@@ -24,6 +24,8 @@
 %
 %----------------------------------------------------
 %Code Authors:
+% Alfredo Fanghella (ajfv@kth.se)
+% Hirahi Galindo (hirahi@kth.se)
 %----------------------------------------------------
 
 function logP=logprob(hmm,x)
@@ -35,6 +37,16 @@ for i=1:numel(hmm)%for all HMM objects
     %regardless of hmmSize, even with multi-dimensional array.
     %
     %logP(i)= result for hmm(i)
-    %continue coding from here, and delete the error message.
-    error('Not yet implemented');
+
+    [pX, scale] = prob(hmm(i).OutputDistr, x);
+    [~, c] = hmm(i).StateGen.forward(pX);
+    
+    if isscalar(scale)% if numel(pD)==1, i.e only 1 state.
+        scale = T*scale;
+    else
+        scale = sum(scale);
+    end
+    logP(i) = sum(log(c))+scale; %(eq 5.54 or 5.55)
 end;
+
+% Note: For finite duration HMMs, it's not necessary to rescale c(T+1)
