@@ -41,13 +41,13 @@ function betaHat=backward(mc,pX,c)
 %Ref: Arne Leijon (201x) Pattern Recognition.
 %
 %--------------------------------------------------------
-%Code Authors: Anonymous
+%Code Authors: 
+%   Alfredo Fanghella
+%   Hirahi Galindo
 %--------------------------------------------------------
 
 T=size(pX,2);%Number of observations
-%FinalProb=.01;
 nS=mc.nStates;
-q=mc.InitialProb; 
 A=mc.TransitionProb; 
 fin=mc.finiteDuration;
 betaHat=zeros(nS,T);   
@@ -55,7 +55,7 @@ if ~fin
     betaHat(:,T)= 1/c(T); 
     square_A = A;
 else
-    betaHat(:,T) = A(:,T)/(c(T)*c(T+1));
+    betaHat(:,T) = A(:,nS+1)/(c(T)*c(T+1));
     square_A = A(:, 1:nS);
 end
 
