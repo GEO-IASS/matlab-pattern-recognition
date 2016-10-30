@@ -25,7 +25,7 @@ if size(directory, 1)== 0
 end
 
 if length(selection) == 0
-    selection = 1:(length(directory)-3)
+    selection = 1:(length(directory)-3);
     % we don't wan't to count ., .. or original.wav
 end
 
