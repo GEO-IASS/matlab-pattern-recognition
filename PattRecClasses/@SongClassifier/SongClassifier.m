@@ -191,6 +191,18 @@ classdef SongClassifier
             end
             fprintf('Average error: %.6f\n', err);
         end
+        
+        function sound(sc, class)
+            % play the original audio for the given class.
+            for i=1:length(sc.Classes)
+                if strcmp(sc.Classes{i}, class)
+                    [song, fs] = audioread(fullfile(sc.ClassPaths{i}, 'original.wav'));
+                    sound(song, fs);
+                    return;
+                end
+            end
+            error('Input must be the name of a class.');
+        end
     end
     
     methods(Access=private) % Helper methods.
